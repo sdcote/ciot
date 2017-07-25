@@ -15,7 +15,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -33,29 +32,19 @@ public class SerialTest {
    */
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
+    // Set a mock implementation of a serial port module in our fixture
     Serial.setModule( new MockSerialModule() );
   }
 
 
 
 
-  /**
-   * @throws java.lang.Exception
-   */
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {}
-
-
-
-
   @Test
-  public void test() throws IOException {
-
+  public void openTest() throws IOException {
     SerialPort commPort = Serial.open( "COM1" );
     assertNotNull( commPort );
     commPort.getInputstream();
     commPort.getOutputstream();
-
   }
 
 }
