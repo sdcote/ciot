@@ -11,11 +11,17 @@
  */
 package coyote.iot;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.IOException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import coyote.iot.serial.MockSerialModule;
+import coyote.iot.serial.SerialPort;
+
 
 /**
  * 
@@ -26,7 +32,9 @@ public class SerialTest {
    * @throws java.lang.Exception
    */
   @BeforeClass
-  public static void setUpBeforeClass() throws Exception {}
+  public static void setUpBeforeClass() throws Exception {
+    Serial.setModule( new MockSerialModule() );
+  }
 
 
 
@@ -41,8 +49,13 @@ public class SerialTest {
 
 
   @Test
-  public void test() {
-    fail( "Not yet implemented" );
+  public void test() throws IOException {
+
+    SerialPort commPort = Serial.open( "COM1" );
+    assertNotNull( commPort );
+    commPort.getInputstream();
+    commPort.getOutputstream();
+
   }
 
 }
