@@ -5,9 +5,12 @@ mainClassName = 'coyote.loader.BootStrap'
 ext {
 	title = 'Coyote IoT Tools'
 	provider = 'Coyote Systems'
+	coyoteVersion = '0.7.1'
 	junitVersion = '4.12'
 }
+
 dependencies {
+	compile "coyote:CoyoteDX:$coyoteVersion"
 	testCompile "junit:junit:$junitVersion"
 }
 
