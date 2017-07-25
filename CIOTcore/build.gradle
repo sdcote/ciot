@@ -1,0 +1,26 @@
+defaultTasks 'clean', 'build', 'publish', 'installDist'
+group = 'coyote'
+mainClassName = 'coyote.loader.BootStrap'
+
+ext {
+	title = 'Coyote IoT Tools'
+	provider = 'Coyote Systems'
+	junitVersion = '4.12'
+}
+dependencies {
+	testCompile "junit:junit:$junitVersion"
+}
+
+jar {
+    manifest {
+		attributes  'Implementation-Title' : "$title",
+		'Provider' : "$provider",
+		'Main-Class' : "$mainClassName",
+		'Implementation-Version' : version
+	}
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } 
+	}{
+		exclude "META-INF/*.RSA"
+	}
+}
