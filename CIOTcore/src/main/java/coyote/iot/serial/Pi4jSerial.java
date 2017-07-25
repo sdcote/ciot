@@ -21,4 +21,9 @@ public class Pi4jSerial extends AbstractSerialModule implements SerialModule {
     return null;
   }
 
+  @Override
+  public String[] getPortNames() {
+    return new String[0];
+  }
+
 }

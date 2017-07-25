@@ -16,7 +16,7 @@ package coyote.iot.serial;
  */
 public class SerialConfig {
 
-  private String device = "COM1";
+  private String portName = "COM1";
   private Baud baud = Baud.b9600;
   private DataBits dataBits = DataBits.EIGHT;
   private Parity parity = Parity.NONE;
@@ -34,8 +34,8 @@ public class SerialConfig {
   /**
    *  The device address of the serial port to access.
    */
-  public String getDevice() {
-    return device;
+  public String getPortName() {
+    return portName;
   }
 
 
@@ -44,8 +44,8 @@ public class SerialConfig {
   /**
    *  The device address of the serial port to access.
    */
-  public SerialConfig setDevice( String device ) {
-    this.device = device;
+  public SerialConfig setPortName( String name ) {
+    this.portName = name;
     return this;
   }
 
@@ -159,7 +159,7 @@ public class SerialConfig {
 
   @Override
   public String toString() {
-    return getDevice() + " (" + getBaud().getValue() + "," + getDataBits().getValue() + getParity().toString().substring( 0, 1 ) + getStopBits().getValue() + ") [" + "FC:" + getFlowControl().toString() + "]";
+    return getPortName() + " (" + getBaud().getValue() + "," + getDataBits().getValue() + getParity().toString().substring( 0, 1 ) + getStopBits().getValue() + ") [" + "FC:" + getFlowControl().toString() + "]";
   }
 
 }

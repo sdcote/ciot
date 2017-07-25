@@ -11,10 +11,14 @@
  */
 package coyote.iot;
 
-import coyote.iot.serial.UnknownSerial;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Map;
+
 import coyote.iot.serial.SerialConfig;
 import coyote.iot.serial.SerialModule;
 import coyote.iot.serial.SerialPort;
+import coyote.iot.serial.UnknownSerial;
 
 
 /**
@@ -32,16 +36,29 @@ import coyote.iot.serial.SerialPort;
  * <p>Try to support the following implementations:
  * RXTX: http://rxtx.qbang.org/
  * PI4J: https://github.com/Pi4J
+ * 
+ * Maybe even:
+ * usb4java: http://usb4java.org/
+ * JSSC: https://code.google.com/archive/p/java-simple-serial-connector/
+ * http://fazecast.github.io/jSerialComm/
+ * http://www.sparetimelabs.com/purejavacomm/purejavacomm.php
+ * 
  */
 public class Serial {
 
-  private static final SerialModule module;
+  // This holds the underlying serial access implementation module
+  private static SerialModule module;
+
+  // All Serial Ports are stored in a table by name representing the ports on the system 
+  private static final Map<String, SerialPort> ports = new Hashtable<String, SerialPort>();
+
+  private static String[] portNames = null;
 
   static {
     // Try to determine which module to use
-    
+
     // look for libraries?
-    
+
     module = new UnknownSerial();
   }
 
@@ -53,8 +70,107 @@ public class Serial {
 
 
 
-  SerialPort open( SerialConfig cfg ) {
-    return module.open( cfg );
+  /**
+   * Retrieve a list of all serial port names available to the API.
+   * 
+   * <p>These names are specific to the platform and should not be considered 
+   * constant between hosts. Two *nix hosts may have different default serial 
+   * port names.
+   * 
+   * @return a list of names the caller can use to open portsList may be empty 
+   *         but never null.
+   */
+  public static String[] getPortNames() {
+    if ( portNames == null ) {
+      portNames = module.getPortNames();
+    }
+    return portNames;
+  }
+
+
+
+
+  /**
+   * Open the serial port described by the given configuration.
+   * 
+   * @param cfg Description of the serial port to open.
+   * 
+   * @return the opened Serial Port
+   * 
+   * @throws IOException if the serial port could not be opened.
+   * @throws IllegalStateException if the serial port is already open.
+   */
+  public static SerialPort open( SerialConfig cfg ) throws IOException {
+    if ( ports.containsKey( cfg.getPortName() ) ) {
+      throw new IllegalStateException( "Serial port is already open: " + cfg.getPortName() );
+    }
+
+    SerialPort retval = module.open( cfg );
+    if ( retval != null ) {
+      ports.put( cfg.getPortName(), retval );
+    } else {
+      throw new IOException( "Could not open serial port is already open: " + cfg.getPortName() );
+    }
+    return retval;
+  }
+
+
+
+
+  /**
+   * Open the named serial port with a default configuration.
+   * 
+   * <p>You can configure the returned port later to meet your needs.
+   * 
+   * @param name the name of the port to open.
+   * 
+   * @return the opened Serial Port
+   * 
+   * @throws IOException if the serial port could not be opened.
+   * @throws IllegalStateException if the serial port is already open.
+   */
+  public static SerialPort open( String name ) throws IOException {
+    if ( ports.containsKey( name ) ) {
+      throw new IllegalStateException( "Serial port is already open: " + name );
+    }
+    SerialConfig cfg = new SerialConfig().setPortName( name );
+
+    SerialPort retval = module.open( cfg );
+    if ( retval != null ) {
+      ports.put( cfg.getPortName(), retval );
+    } else {
+      throw new IOException( "Could not open serial port is already open: " + cfg.getPortName() );
+    }
+    return retval;
+  }
+
+
+
+
+  /**
+   * @return the module responsible for creating SerialPort instances.
+   */
+  static SerialModule getModule() {
+    return module;
+  }
+
+
+
+
+  /**
+   * Set the module to a specific implementation.
+   * 
+   * <p>The primary purpose for this acessor is to enable testing, allowing 
+   * the module to be replaced with a Mock object which will return Mock 
+   * SerialPorts without placing test code in the main artifact.
+   * 
+   * <p>Default access implies test classes will need to be in same package as 
+   * this fixture. This is the case for testing.
+   * 
+   * @param module the module to set
+   */
+  static void setModule( SerialModule module ) {
+    Serial.module = module;
   }
 
 }
