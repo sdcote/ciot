@@ -7,6 +7,9 @@
  */
 package coyote.iot.serial;
 
+import java.io.IOException;
+
+
 /**
  * A contract with all serial modules.
  * 
@@ -19,9 +22,12 @@ public interface SerialModule {
    * 
    * <p>For most implementations only the DeviceName is important.
    * @param cfg
-   * @return
+   * 
+   * @return the serial port for use
+   * 
+   * @throws IOException of the named serial port could not be opened.
    */
-  public SerialPort open(SerialConfig cfg);
+  public SerialPort open(SerialConfig cfg) throws IOException;
 
 
 
