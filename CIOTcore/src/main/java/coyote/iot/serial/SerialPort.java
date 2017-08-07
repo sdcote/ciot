@@ -4,10 +4,6 @@
  * This program and the accompanying materials are made available under the 
  * terms of the MIT License which accompanies this distribution, and is 
  * available at http://creativecommons.org/licenses/MIT/
- *
- * Contributors:
- *   Stephan D. Cote 
- *      - Initial concept and implementation
  */
 package coyote.iot.serial;
 
@@ -47,6 +43,6 @@ public interface SerialPort extends Closeable {
    * 
    * @param config The configuration data
    */
-  public void configure( SerialConfig config );
+  public void configure(SerialConfig config);
 
 }

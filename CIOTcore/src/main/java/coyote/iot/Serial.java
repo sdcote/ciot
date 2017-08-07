@@ -4,10 +4,6 @@
  * This program and the accompanying materials are made available under the 
  * terms of the MIT License which accompanies this distribution, and is 
  * available at http://creativecommons.org/licenses/MIT/
- *
- * Contributors:
- *   Stephan D. Cote 
- *      - Initial concept and implementation
  */
 package coyote.iot;
 
@@ -81,7 +77,7 @@ public class Serial {
    *         but never null.
    */
   public static String[] getPortNames() {
-    if ( portNames == null ) {
+    if (portNames == null) {
       portNames = module.getPortNames();
     }
     return portNames;
@@ -100,16 +96,16 @@ public class Serial {
    * @throws IOException if the serial port could not be opened.
    * @throws IllegalStateException if the serial port is already open.
    */
-  public static SerialPort open( SerialConfig cfg ) throws IOException {
-    if ( ports.containsKey( cfg.getPortName() ) ) {
-      throw new IllegalStateException( "Serial port is already open: " + cfg.getPortName() );
+  public static SerialPort open(SerialConfig cfg) throws IOException {
+    if (ports.containsKey(cfg.getPortName())) {
+      throw new IllegalStateException("Serial port is already open: " + cfg.getPortName());
     }
 
-    SerialPort retval = module.open( cfg );
-    if ( retval != null ) {
-      ports.put( cfg.getPortName(), retval );
+    SerialPort retval = module.open(cfg);
+    if (retval != null) {
+      ports.put(cfg.getPortName(), retval);
     } else {
-      throw new IOException( "Could not open serial port is already open: " + cfg.getPortName() );
+      throw new IOException("Could not open serial port is already open: " + cfg.getPortName());
     }
     return retval;
   }
@@ -129,17 +125,17 @@ public class Serial {
    * @throws IOException if the serial port could not be opened.
    * @throws IllegalStateException if the serial port is already open.
    */
-  public static SerialPort open( String name ) throws IOException {
-    if ( ports.containsKey( name ) ) {
-      throw new IllegalStateException( "Serial port is already open: " + name );
+  public static SerialPort open(String name) throws IOException {
+    if (ports.containsKey(name)) {
+      throw new IllegalStateException("Serial port is already open: " + name);
     }
-    SerialConfig cfg = new SerialConfig().setPortName( name );
+    SerialConfig cfg = new SerialConfig().setPortName(name);
 
-    SerialPort retval = module.open( cfg );
-    if ( retval != null ) {
-      ports.put( cfg.getPortName(), retval );
+    SerialPort retval = module.open(cfg);
+    if (retval != null) {
+      ports.put(cfg.getPortName(), retval);
     } else {
-      throw new IOException( "Could not open serial port is already open: " + cfg.getPortName() );
+      throw new IOException("Could not open serial port is already open: " + cfg.getPortName());
     }
     return retval;
   }
@@ -169,7 +165,7 @@ public class Serial {
    * 
    * @param module the module to set
    */
-  static void setModule( SerialModule module ) {
+  static void setModule(SerialModule module) {
     Serial.module = module;
   }
 

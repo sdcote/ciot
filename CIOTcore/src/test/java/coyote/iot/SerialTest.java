@@ -4,10 +4,6 @@
  * This program and the accompanying materials are made available under the 
  * terms of the MIT License which accompanies this distribution, and is 
  * available at http://creativecommons.org/licenses/MIT/
- *
- * Contributors:
- *   Stephan D. Cote 
- *      - Initial concept and implementation
  */
 package coyote.iot;
 
@@ -33,7 +29,7 @@ public class SerialTest {
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
     // Set a mock implementation of a serial port module in our fixture
-    Serial.setModule( new MockSerialModule() );
+    Serial.setModule(new MockSerialModule());
   }
 
 
@@ -41,8 +37,8 @@ public class SerialTest {
 
   @Test
   public void openTest() throws IOException {
-    SerialPort commPort = Serial.open( "COM1" );
-    assertNotNull( commPort );
+    SerialPort commPort = Serial.open("COM1");
+    assertNotNull(commPort);
     commPort.getInputstream();
     commPort.getOutputstream();
   }

@@ -4,14 +4,10 @@
  * This program and the accompanying materials are made available under the 
  * terms of the MIT License which accompanies this distribution, and is 
  * available at http://creativecommons.org/licenses/MIT/
- *
- * Contributors:
- *   Stephan D. Cote 
- *      - Initial concept and implementation
  */
 package coyote.iot.serial;
 
-/****
+/**
  * 
  */
 public class SerialConfig {
@@ -44,7 +40,7 @@ public class SerialConfig {
   /**
    *  The device address of the serial port to access.
    */
-  public SerialConfig setPortName( String name ) {
+  public SerialConfig setPortName(String name) {
     this.portName = name;
     return this;
   }
@@ -65,7 +61,7 @@ public class SerialConfig {
   /**
    * The baud rate to use with the serial port.
    */
-  public SerialConfig setBaud( Baud baud ) {
+  public SerialConfig setBaud(Baud baud) {
     this.baud = baud;
     return this;
   }
@@ -86,7 +82,7 @@ public class SerialConfig {
   /**
    * The data bits to use for serial communication. (5,6,7,8)
    */
-  public SerialConfig setDataBits( DataBits dataBits ) {
+  public SerialConfig setDataBits(DataBits dataBits) {
     this.dataBits = dataBits;
     return this;
   }
@@ -107,7 +103,7 @@ public class SerialConfig {
   /**
    * The parity setting to use for serial communication. (None, Event, Odd, Mark, Space)
    */
-  public SerialConfig setParity( Parity parity ) {
+  public SerialConfig setParity(Parity parity) {
     this.parity = parity;
     return this;
   }
@@ -128,7 +124,7 @@ public class SerialConfig {
   /**
    * The stop bits to use for serial communication. (1,2)
    */
-  public SerialConfig setStopBits( StopBits stopBits ) {
+  public SerialConfig setStopBits(StopBits stopBits) {
     this.stopBits = stopBits;
     return this;
   }
@@ -149,7 +145,7 @@ public class SerialConfig {
   /**
    * The flow control option to use for serial communication. (none, hardware, software)
    */
-  public SerialConfig setFlowControl( FlowControl flowControl ) {
+  public SerialConfig setFlowControl(FlowControl flowControl) {
     this.flowControl = flowControl;
     return this;
   }
@@ -159,7 +155,7 @@ public class SerialConfig {
 
   @Override
   public String toString() {
-    return getPortName() + " (" + getBaud().getValue() + "," + getDataBits().getValue() + getParity().toString().substring( 0, 1 ) + getStopBits().getValue() + ") [" + "FC:" + getFlowControl().toString() + "]";
+    return getPortName() + " (" + getBaud().getValue() + "," + getDataBits().getValue() + getParity().toString().substring(0, 1) + getStopBits().getValue() + ") [" + "FC:" + getFlowControl().toString() + "]";
   }
 
 }

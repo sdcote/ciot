@@ -4,10 +4,6 @@
  * This program and the accompanying materials are made available under the 
  * terms of the MIT License which accompanies this distribution, and is 
  * available at http://creativecommons.org/licenses/MIT/
- *
- * Contributors:
- *   Stephan D. Cote 
- *      - Initial concept and implementation
  */
 package coyote.iot.serial;
 
@@ -32,36 +28,36 @@ public class MockSerialModule implements SerialModule {
   private static final Map<String, Class<?>> portMap = new Hashtable<String, Class<?>>();
 
   static {
-    portMap.put( COM1, MockCommPort.class );
+    portMap.put(COM1, MockCommPort.class);
   }
 
 
 
 
   @Override
-  public SerialPort open( SerialConfig cfg ) {
+  public SerialPort open(SerialConfig cfg) {
     SerialPort retval = null;
 
-    if ( StringUtil.isNotBlank( cfg.getPortName() ) ) {
-      if ( portMap.containsKey( cfg.getPortName() ) ) {
-        Class<?> clazz = portMap.get( cfg.getPortName() );
+    if (StringUtil.isNotBlank(cfg.getPortName())) {
+      if (portMap.containsKey(cfg.getPortName())) {
+        Class<?> clazz = portMap.get(cfg.getPortName());
         try {
           Constructor<?> ctor = clazz.getConstructor();
           Object object = ctor.newInstance();
 
-          if ( cfg != null ) {
-            if ( object instanceof SerialPort ) {
-              retval = (SerialPort)object ;
+          if (cfg != null) {
+            if (object instanceof SerialPort) {
+              retval = (SerialPort)object;
               try {
-                retval.configure( cfg );
-              } catch ( Exception e ) {
-                Log.error( "Could not configure mock serial port " + cfg.getPortName() + " - " + e.getMessage() );
+                retval.configure(cfg);
+              } catch (Exception e) {
+                Log.error("Could not configure mock serial port " + cfg.getPortName() + " - " + e.getMessage());
               }
             } else {
-              Log.error( "Mock serial port class " + clazz.getName() + " does not implement SerialPort interface" );
+              Log.error("Mock serial port class " + clazz.getName() + " does not implement SerialPort interface");
             }
           }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
           e.printStackTrace();
         }
       }
