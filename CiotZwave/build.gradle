@@ -1,0 +1,24 @@
+defaultTasks 'clean', 'build', 'publish', 'installDist'
+group = 'coyote'
+mainClassName = 'coyote.loader.BootStrap'
+
+ext {
+	title = 'Coyote IoT Z Wave Tools'
+	provider = 'Coyote Systems'
+	junitVersion = '4.12'
+	coyoteVersion = '0.7.1'
+}
+
+dependencies {
+	compile "coyote:CoyoteDX:$coyoteVersion"
+	testCompile "junit:junit:$junitVersion"
+}
+
+jar {
+    manifest {
+		attributes  'Implementation-Title' : "$title",
+		'Provider' : "$provider",
+		'Main-Class' : "$mainClassName",
+		'Implementation-Version' : version
+	}
+}
