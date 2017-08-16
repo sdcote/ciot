@@ -11,6 +11,8 @@ ext {
 
 dependencies {
 	compile "coyote:CoyoteDX:$coyoteVersion"
+	compile files('./lib/jssc.jar')
+
 	testCompile "junit:junit:$junitVersion"
 }
 

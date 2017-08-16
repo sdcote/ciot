@@ -10,7 +10,7 @@ package coyote.iot.serial;
 /**
  * 
  */
-public class RxTxSerial extends AbstractSerialModule implements SerialModule {
+public class JsscSerial extends AbstractSerialModule implements SerialModule {
 
   @Override
   public SerialPort open(SerialConfig cfg) {
