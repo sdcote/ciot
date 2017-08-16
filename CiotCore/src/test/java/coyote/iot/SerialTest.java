@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import coyote.iot.serial.MockSerialModule;
 import coyote.iot.serial.SerialPort;
+import jssc.SerialPortList;
 
 
 /**
@@ -43,4 +44,10 @@ public class SerialTest {
     commPort.getOutputstream();
   }
 
+  
+  @Test
+  public void listPorts(){
+    String[] portNames = Serial.getPortNames();
+    assertNotNull(portNames);
+  }
 }

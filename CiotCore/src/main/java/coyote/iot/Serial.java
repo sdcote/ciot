@@ -15,6 +15,9 @@ import coyote.iot.serial.SerialConfig;
 import coyote.iot.serial.SerialModule;
 import coyote.iot.serial.SerialPort;
 import coyote.iot.serial.UnknownSerial;
+import coyote.iot.serial.jssc.JsscSerial;
+import coyote.iot.serial.pi4j.Pi4jSerial;
+import coyote.loader.log.Log;
 
 
 /**
@@ -51,17 +54,32 @@ public class Serial {
   private static String[] portNames = null;
 
   static {
-    // Try to determine which module to use
+    // Try to determine which module to use. Each will throw an exception if they cannot be loaded
+    try {
+      module = new JsscSerial();
+    } catch (ClassNotFoundException e) {
+      Log.debug("Could not load JSSC");
+    }
 
-    // look for libraries?
+    if (module == null) {
+      try {
+        module = new Pi4jSerial();
+      } catch (ClassNotFoundException e) {
+        Log.debug("Could not load Pi4j");
+      }
+    }
 
-    module = new UnknownSerial();
+    if (module == null) {
+      module = new UnknownSerial();
+    }
   }
 
 
 
 
-  private Serial() {}
+  private Serial() {
+    // private constructor
+  }
 
 
 

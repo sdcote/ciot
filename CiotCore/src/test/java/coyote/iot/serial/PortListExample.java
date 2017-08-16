@@ -7,22 +7,20 @@
  */
 package coyote.iot.serial;
 
+import coyote.iot.Serial;
+
+
 /**
  * 
  */
-public class JsscSerial extends AbstractSerialModule implements SerialModule {
+public class PortListExample {
 
-  @Override
-  public SerialPort open(SerialConfig cfg) {
-    return null;
-  }
-
-
-
-
-  @Override
-  public String[] getPortNames() {
-    return new String[0];
+  public static void main(String[] args) {
+    String[] portNames = Serial.getPortNames();
+    System.out.println("Available comm ports:");
+    for (int i = 0; i < portNames.length; i++) {
+      System.out.println(portNames[i]);
+    }
   }
 
 }
