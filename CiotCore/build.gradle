@@ -7,12 +7,14 @@ ext {
 	provider = 'Coyote Systems'
 	coyoteVersion = '0.7.1'
 	junitVersion = '4.12'
+	jsscVersion = '2.8.0'
+	pi4jVersion = '1.1'
 }
 
 dependencies {
 	compile "coyote:CoyoteDX:$coyoteVersion"
-	compile files('./lib/jssc-2.7.0.jar')
-
+	compile "org.scream3r:jssc:$jsscVersion"
+	compile "com.pi4j:pi4j-core:$pi4jVersion"    
 	testCompile "junit:junit:$junitVersion"
 }
 
@@ -22,10 +24,5 @@ jar {
 		'Provider' : "$provider",
 		'Main-Class' : "$mainClassName",
 		'Implementation-Version' : version
-	}
-	from {
-		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } 
-	}{
-		exclude "META-INF/*.RSA"
 	}
 }
