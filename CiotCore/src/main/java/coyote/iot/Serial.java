@@ -153,7 +153,7 @@ public class Serial {
     if (retval != null) {
       ports.put(cfg.getPortName(), retval);
     } else {
-      throw new IOException("Could not open serial port is already open: " + cfg.getPortName());
+      throw new IOException("Could not open, serial port is already open: " + cfg.getPortName());
     }
     return retval;
   }

@@ -40,7 +40,4 @@ public interface SerialModule {
    */
   public String[] getPortNames();
 
-
-
-
 }
