@@ -58,3 +58,5 @@ test.zip
 
 CoyoteInstaller.jar
 
+CiotCore/src/test/java/coyote/iot/zwave/
+CiotCore/src/test/java/jssc/
